@@ -6,7 +6,7 @@ terraform {
   }
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "judith-testing"
 
     workspaces {
       name = "gh-actions-demo"
