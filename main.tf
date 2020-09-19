@@ -9,10 +9,10 @@ terraform {
   }
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "softbaked"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "cd-demo"
     }
   }
 }
