@@ -47,6 +47,14 @@ resource "aws_security_group" "web-sg" {
   }
 }
 
+resource awsresource "aws_rds_cluster" "database-2" {
+  name        = "database-2"
+  parameter_group   = [db-param]
+}
+
+resource "aws_rds_parameter_group" "db-param" {
+  name = "testparam"
+}
 output "web-address" {
   value = "${aws_instance.web.public_dns}:8080"
 }
