@@ -9,10 +9,10 @@ terraform {
   }
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "test-jj"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "test-jj5"
     }
   }
 }
