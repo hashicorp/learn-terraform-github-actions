@@ -8,7 +8,6 @@ terraform {
     }
   }
 
-
   backend "remote" {
     organization = "Telefonica"
 
