@@ -10,6 +10,7 @@ terraform {
 
 
   backend "remote" {
+    hostname = "terraform.multicloud.telefonica.com"
     organization = "Telefonica"
 
     workspaces {
