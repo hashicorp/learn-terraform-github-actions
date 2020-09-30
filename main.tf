@@ -2,8 +2,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-
-terraform {
+master
   backend "remote" {
     organization = "Telefonica"
     hostname = "terraform.multicloud.telefonica.com"
@@ -12,11 +11,6 @@ terraform {
       name = "test-backend"
     }
   }
-}
-
-
-provider "aws" {
-  region = "us-west-2"
 }
 
 provider "random" {}
