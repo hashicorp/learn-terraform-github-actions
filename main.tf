@@ -9,7 +9,8 @@ terraform {
   }
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    hostname = "terraform.multicloud.telefonica.com"
+    organization = "Telefonica"
 
     workspaces {
       name = "gh-actions-demo"
