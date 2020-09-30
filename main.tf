@@ -2,7 +2,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-master
+master {
   backend "remote" {
     organization = "Telefonica"
     hostname = "terraform.multicloud.telefonica.com"
