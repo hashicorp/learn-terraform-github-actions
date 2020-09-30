@@ -1,23 +1,19 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
+
 terraform {
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-    }
-    random = {
-      source = "hashicorp/random"
-    }
-  }
-
-
   backend "remote" {
-    hostname = "terraform.multicloud.telefonica.com"
     organization = "Telefonica"
+    hostname = "terraform.multicloud.telefonica.com"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "test-backend"
     }
   }
 }
+
 
 provider "aws" {
   region = "us-west-2"
