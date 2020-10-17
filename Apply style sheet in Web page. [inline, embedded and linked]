@@ -1,0 +1,79 @@
+ext.css
+
+hr 
+
+{
+
+color:sienna;
+
+}
+
+p 
+
+{
+
+margin-left:20px;
+
+}
+
+body 
+
+{
+
+background-image:url("sheet.jpg");
+
+}
+
+ stylesheet.html
+
+<html>
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="ext.css">
+
+<style>
+
+h1
+</html>
+</body>
+
+{
+
+background-color:#6495ed;
+
+}
+
+p
+
+{
+
+background-color:#e0ffff;
+
+}
+
+div
+
+{
+
+background-color:#b0c4de;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Internal, External & Inline Style!</h1>
+
+<div>Text inside a div element.
+
+<p>paragraph background color</p>
+
+still in the div element.
+
+</div>
+
+<p style="color:red;margin-left:20px;">Hello world.</p>
