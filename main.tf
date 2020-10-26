@@ -17,6 +17,12 @@ terraform {
   }
 }
 
+    workspaces {
+      name = "gh-actions-demo"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-west-2"
 }
