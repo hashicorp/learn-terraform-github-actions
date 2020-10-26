@@ -9,16 +9,16 @@ terraform {
   }
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "RPTData"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "IaC_POP_Terraform_Cloud"
     }
   }
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = "us-east-1"
 }
 
 provider "random" {}
