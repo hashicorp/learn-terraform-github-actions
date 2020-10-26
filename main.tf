@@ -7,7 +7,7 @@ terraform {
       source = "hashicorp/random"
     }
   }
- 
+
   backend "remote" {
     organization = "SkeenAdvantage"
 
