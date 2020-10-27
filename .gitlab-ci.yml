@@ -1,82 +1,73 @@
 image:
-    name: hashicorp/terraform:light
-    entrypoint:
-      - '/usr/bin/env'
-      - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-      - 'AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}' 
-      - 'AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}' 
-      - 'AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}'
+  name: hashicorp/terraform:light
+  entrypoint:
+    - '/usr/bin/env'
+    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    - 'AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}' 
+    - 'AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}' 
   
-  variables:
-    PLAN: plan.tfplan
-  
-  cache:
-    paths:
-      - .terraform
-  
-  before_script:
-    - terraform --version
-    - terraform init
-  
-  stages:
-    - format
-    - validate
-    - plan
-    - apply
-  
-  format:
-    stage: format
-    script:
-      - terraform fmt
-    only:
-      - branches
+variables:
+  PLAN: plan.tfplan
 
-  validate:
-    stage: validate
-    script:
-      - terraform validate
-    only:
-      - branches
+cache:
+  paths:
+  - .terraform
   
-  plan:
-    stage: plan
-    script:
-      - terraform plan -out=$PLAN
-      - echo \`\`\`diff > plan.txt
-      - terraform show -no-color ${PLAN} | tee -a plan.txt
-      - echo \`\`\` >> plan.txt
-      - sed -i -e 's/  +/+/g' plan.txt
-      - sed -i -e 's/  ~/~/g' plan.txt
-      - sed -i -e 's/  -/-/g' plan.txt
-      - MESSAGE=$(cat plan.txt)
-      - >-
-        curl -X POST -g -H "PRIVATE-TOKEN: ${GITLAB_ACCESS_TOKEN}" 
-        --data-urlencode "body=${MESSAGE}" 
-        "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/merge_requests/${CI_MERGE_REQUEST_IID}/discussions"
-    artifacts:
-      name: plan
-      paths:
-        - $PLAN
-    only:
-      - merge_requests
+before_script:
+  - terraform --version
+  - terraform init
   
-  build:
-    stage: plan
-    script:
-      - terraform plan -out=$PLAN
-    artifacts:
-      name: plan
-      paths:
-        - $PLAN
-    only:
-      - master
+stages:
+  - validate
+  - plan
+  - apply
+
+validate:
+  stage: validate
+  script:
+    - terraform validate
+  only:
+    - branches
   
-  apply:
-    stage: apply
-    script:
-      - terraform apply -input=false $PLAN
-    dependencies:
-      - build
-    when: manual
-    only:
-      - master
+plan:
+  stage: plan
+  script:
+    - terraform plan -out=$PLAN
+    - echo \`\`\`diff > plan.txt
+    - terraform show -no-color ${PLAN} | tee -a plan.txt
+    - echo \`\`\` >> plan.txt
+    - sed -i -e 's/  +/+/g' plan.txt
+    - sed -i -e 's/  ~/~/g' plan.txt
+    - sed -i -e 's/  -/-/g' plan.txt
+    - MESSAGE=$(cat plan.txt)
+    - >-
+      curl -X POST -g -H "PRIVATE-TOKEN: ${GITLAB_ACCESS_TOKEN}" 
+      --data-urlencode "body=${MESSAGE}" 
+      "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/merge_requests/${CI_MERGE_REQUEST_IID}/discussions"
+  artifacts:
+    name: plan
+    paths:
+     - $PLAN
+  only:
+    - merge_requests
+  
+build:
+  stage: plan
+  script:
+    - terraform plan -out=$PLAN
+  artifacts:
+    name: plan
+    paths:
+      - $PLAN
+  only:
+    - master
+  
+apply:
+  stage: apply
+  script:
+    - terraform apply -input=false $PLAN
+  dependencies:
+    - build
+  when: manual
+  only:
+    - master
