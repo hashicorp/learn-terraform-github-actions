@@ -10,7 +10,7 @@ terraform {
 
   backend "remote" {
     organization = "SkeenAdvantage"
-    #Testing copy and paste of Org info adding pull request
+    #Testing
 
     workspaces {
       name = "gh-actions-demo"
