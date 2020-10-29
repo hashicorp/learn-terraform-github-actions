@@ -1,4 +1,14 @@
 terraform {
+  backend "remote" {
+    organization = "MyABTestOrg"
+
+    workspaces {
+      name = "gh-actions-demo"
+    }
+  }
+}
+
+terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
