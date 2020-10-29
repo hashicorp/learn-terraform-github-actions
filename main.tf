@@ -17,14 +17,6 @@ terraform {
       source = "hashicorp/random"
     }
   }
-
-  backend "remote" {
-    organization = "MyABTestOrg"
-
-    workspaces {
-      name = "gh-actions-demo"
-    }
-  }
 }
 
 provider "aws" {
