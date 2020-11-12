@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "learn-terraform-aws-cloud"
 
     workspaces {
       name = "gh-actions-demo"
