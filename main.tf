@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source = "hashicorp/google"
     }
     random = {
       source = "hashicorp/random"
@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "Terraform-User-0054"
 
     workspaces {
       name = "gh-actions-demo"
