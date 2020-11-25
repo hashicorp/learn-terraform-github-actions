@@ -4,8 +4,8 @@ terraform {
 
     workspaces {
       name = "gh-actions-demo"
-    }
-  }
+    }
+  }
 }
 
 
