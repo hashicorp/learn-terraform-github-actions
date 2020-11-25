@@ -1,18 +1,11 @@
 terraform {
-  required_providers {
-    fastly = {
-      source = "hashicorp/google"
-    }
-  }
+  backend "remote" {
+    organization = "Terraform-User-0054"
 
-  backend "remote" {
-    hostname     = "app.terraform.io"
-    organization = "Terraform-User-0054"
-
-    workspaces {
-      name = "gh-actions-demo"
-    }
-  }
+    workspaces {
+      name = "gh-actions-demo"
+    }
+  }
 }
 
 
