@@ -26,7 +26,7 @@ provider "google" {
 #creating a storage bucket in GCP
 resource "google_storage_bucket" "bucket1" {
   project = "vasu-pratice1-terraform-admin"
-  name = "API-test-bucket-01"
+  name = "API-test-bucket"
   location = "us-east1"
   storage_class = "REGIONAL"
 }
