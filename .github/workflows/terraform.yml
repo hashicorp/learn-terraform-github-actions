@@ -21,7 +21,7 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
       
       - name: Terraform validate
-        id: fmt
+        id: validate
         run: terraform validate
         
       - name: Terraform Format
