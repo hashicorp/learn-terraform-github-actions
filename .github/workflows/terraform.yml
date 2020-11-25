@@ -19,10 +19,6 @@ jobs:
         with:
           # terraform_version: 0.13.0:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-      
-      - name: Terraform validate
-        id: validate
-        run: terraform validate
         
       - name: Terraform Format
         id: fmt
