@@ -17,9 +17,6 @@ terraform {
   }
 }
 
-provider "aws" {
-  region = "us-west-2"
-}
 
 provider "google" {
   version = "3.5.0"
