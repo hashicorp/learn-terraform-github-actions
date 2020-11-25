@@ -1,14 +1,12 @@
 terraform {
   required_providers {
-    aws = {
+    fastly = {
       source = "hashicorp/google"
-    }
-    random = {
-      source = "hashicorp/random"
     }
   }
 
   backend "remote" {
+    hostname     = "app.terraform.io"
     organization = "Terraform-User-0054"
 
     workspaces {
