@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "remote" {
-    organization = "Jarrarycom"
+    organization = "Jarraycom"
 
     workspaces {
       name = "gh-actions-demo"
