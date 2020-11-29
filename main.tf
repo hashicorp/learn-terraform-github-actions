@@ -9,10 +9,10 @@ terraform {
   }
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "msavita-cloud"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "tfc-guide-example"
     }
   }
 }
