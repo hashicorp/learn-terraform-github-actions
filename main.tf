@@ -1,3 +1,4 @@
+# test
 terraform {
   required_providers {
     aws = {
@@ -7,7 +8,6 @@ terraform {
       source = "hashicorp/random"
     }
   }
-
 
   backend "remote" {
     organization = "github_action"
