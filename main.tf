@@ -1,3 +1,4 @@
+# test
 terraform {
   required_providers {
     aws = {
@@ -7,7 +8,6 @@ terraform {
       source = "hashicorp/random"
     }
   }
-
 
   backend "remote" {
     organization = "github_action"
@@ -51,3 +51,4 @@ resource "aws_security_group" "web-sg" {
 output "web-address" {
   value = "${aws_instance.web.public_dns}:8080"
 }
+
