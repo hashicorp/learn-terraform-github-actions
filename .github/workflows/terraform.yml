@@ -24,6 +24,10 @@ jobs:
         id: fmt
         run: terraform fmt -check
 
+      - name: Terraform Login
+        id: login
+        run: terraform login
+
       - name: Terraform Init
         id: init
         run: terraform init
@@ -53,7 +57,7 @@ jobs:
 
             *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
 
-              
+
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
