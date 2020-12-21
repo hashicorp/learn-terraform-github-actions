@@ -11,6 +11,7 @@ jobs:
     name: "Terraform"
     runs-on: ubuntu-latest
     steps:
+        
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -19,10 +20,8 @@ jobs:
         with:
           # terraform_version: 0.14.2
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-
-      - name: Echo Terraform secret
-        id: Echo
-        run: echo ${{ secrets.TF_API_TOKEN }}
+      
+        script: echo ${{ secrets.TF_API_TOKEN }}
 
       - name: Terraform Format
         id: fmt
