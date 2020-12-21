@@ -20,6 +20,10 @@ jobs:
           # terraform_version: 0.14.2
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
+      - name: Echo Terraform secret
+        id: Echo
+        run: echo ${{ secrets.TF_API_TOKEN }}
+
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check
