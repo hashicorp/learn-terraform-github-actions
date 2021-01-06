@@ -9,10 +9,10 @@ terraform {
   }
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "aktek"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "aktek-aws"
     }
   }
 }
