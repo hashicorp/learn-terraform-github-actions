@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "ulny"
 
     workspaces {
       name = "gh-actions-demo"
@@ -21,7 +21,7 @@ provider "aws" {
   region = "us-west-2"
 }
 
-provider "random" {}
+provider "random" {
 
 resource "random_pet" "sg" {}
 
