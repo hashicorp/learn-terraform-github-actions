@@ -9,16 +9,16 @@ terraform {
   }
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "MyProductHub"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "gh-myproducthub-pre-live"
     }
   }
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = "eu-west-1"
 }
 
 provider "random" {}
