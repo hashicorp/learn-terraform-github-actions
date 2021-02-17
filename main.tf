@@ -14,6 +14,8 @@ terraform {
   backend "remote" {
     organization = "joncloud"
 
+
+
     workspaces {
       name = "gh-actions-demo"
     }
