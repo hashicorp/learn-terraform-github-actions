@@ -15,7 +15,7 @@ terraform {
     organization = "DIP-CLOUD"
 
     workspaces {
-      name = "terraform-demo "
+      name = "terraform-demo"
     }
   }
 }
