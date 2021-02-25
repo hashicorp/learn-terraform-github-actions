@@ -14,10 +14,6 @@ terraform {
   backend "remote" {
     organization = "joncloud"
 
-
-
-
-
     workspaces {
       name = "gh-actions-demo"
     }
@@ -29,8 +25,6 @@ provider "aws" {
   region = "us-east-1"
 }
 
-
-
 resource "random_pet" "sg" {}
 
 resource "aws_instance" "web" {
@@ -41,7 +35,7 @@ resource "aws_instance" "web" {
 
   user_data = <<-EOF
               #!/bin/bash
-              echo "Hello, World" > index.html
+              echo "Hello, World22" > index.html
               nohup busybox httpd -f -p 8080 &
               EOF
 }
@@ -50,3 +44,5 @@ resource "aws_instance" "web" {
 output "web-address" {
   value = "${aws_instance.web.public_dns}:8080"
 }
+
+
