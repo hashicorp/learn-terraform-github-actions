@@ -1,4 +1,4 @@
-# test
+## test
 terraform {
   required_providers {
     aws = {
@@ -13,13 +13,13 @@ terraform {
     organization = "github_action"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "gh-actions-demo2"
     }
   }
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = "ap-northeast-2"
 }
 
 provider "random" {}
@@ -27,13 +27,13 @@ provider "random" {}
 resource "random_pet" "sg" {}
 
 resource "aws_instance" "web" {
-  ami                    = "ami-830c94e3"
+  ami                    = "ami-006e2f9fa7597680a"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.web-sg.id]
 
   user_data = <<-EOF
               #!/bin/bash
-              echo "Hello, World" > index.html
+              echo "Hello, World1" > index.html
               nohup busybox httpd -f -p 8080 &
               EOF
 }
