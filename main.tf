@@ -12,10 +12,10 @@ terraform {
   required_version = "~> 0.14"
 
   backend "remote" {
-    organization = "zm-intern06"
+    organization = "replace_me"
 
     workspaces {
-      name = "github-integration"
+      name = "gh-actions-demo"
     }
   }
 }
