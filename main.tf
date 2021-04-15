@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "wus-rg" {
-  name     = "wus-vnet"
+  name     = "wus-rg"
   location = "West US"
 }
 
