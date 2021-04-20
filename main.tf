@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "remote" {
-    organization = "pl-org"
+    organization = "p-devops"
 
     workspaces {
       name = "gh-actions-demo"
