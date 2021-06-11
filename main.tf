@@ -40,6 +40,7 @@ resource "aws_instance" "web" {
               nohup busybox httpd -f -p 8080 &
               EOF
 }
+#
 
 resource "aws_security_group" "web-sg" {
   name = "${random_pet.sg.id}-sg"
