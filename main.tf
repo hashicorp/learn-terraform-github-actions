@@ -9,10 +9,10 @@ terraform {
       version = "3.0.1"
     }
   }
-  required_version = "~> 0.14"
+  required_version = "~> 1.0"
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "cybersecurity-homeschooling"
 
     workspaces {
       name = "gh-actions-demo"
