@@ -12,7 +12,7 @@ terraform {
   required_version = "~> 1.0"
 
   backend "remote" {
-    scello-works = "gh-actions-demo"
+    organization = "scelloo-works"
 
     workspaces {
       name = "gh-actions-demo"
