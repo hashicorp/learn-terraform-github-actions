@@ -22,5 +22,5 @@ terraform {
 
 
 module "server" {
-  source = "git@github.com:imchristianlowe/tf-modules?ref=v1.0.0"
+  source = "github.com/imchristianlowe/tf-modules?ref=v1.0.0"
 }
