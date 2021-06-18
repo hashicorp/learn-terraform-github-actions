@@ -20,6 +20,11 @@ terraform {
   }
 }
 
+provider "aws" {
+  region = "us-west-2"
+}
+
+
 
 module "server" {
   source = "github.com/imchristianlowe/tf-modules?ref=v1.0.0"
