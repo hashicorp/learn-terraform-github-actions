@@ -27,5 +27,5 @@ provider "aws" {
 
 
 module "server" {
-  source = "github.com/imchristianlowe/tf-modules?ref=v1.0.0"
+  source = "github.com/imchristianlowe/tf-modules//test?ref=v1.0.0"
 }
