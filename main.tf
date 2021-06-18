@@ -26,10 +26,10 @@ provider "aws" {
 
 
 
-module "server" {
-  source = "github.com/imchristianlowe/tf-modules//test?ref=v1.0.0"
-}
-
-output "url" {
-  value = module.server.web-address
-}
+//module "server" {
+//  source = "github.com/imchristianlowe/tf-modules//test?ref=v1.0.0"
+//}
+//
+//output "url" {
+//  value = module.server.web-address
+//}
