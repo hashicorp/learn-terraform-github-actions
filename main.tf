@@ -9,7 +9,7 @@ terraform {
       version = "3.0.1"
     }
   }
-  required_version = "~> 0.14.01"
+#  required_version = "~> 0.14.01"
 
   backend "remote" {
     organization = "swich-m"
