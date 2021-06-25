@@ -12,7 +12,7 @@ terraform {
   required_version = "~> 0.14"
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "linhtest"
 
     workspaces {
       name = "gh-actions-demo"
@@ -22,7 +22,7 @@ terraform {
 
 
 provider "aws" {
-  region = "us-west-2"
+  region = "us-west-1"
 }
 
 
