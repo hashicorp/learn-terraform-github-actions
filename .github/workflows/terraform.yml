@@ -73,7 +73,7 @@ jobs:
 
       - name: Terraform Apply
         run: |
-        echo github.ref
-        echo github.event_name
+        echo "github.ref"
+        echo "${{ github.event_name}}""
       //  if: github.ref == 'refs/heads/master' && github.event_name == 'push'
        // run: terraform apply -auto-approve
