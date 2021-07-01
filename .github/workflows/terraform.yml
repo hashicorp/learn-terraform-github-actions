@@ -72,6 +72,5 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        run: |
        if: github.ref == 'refs/heads/master' 
        run: terraform apply -auto-approve
