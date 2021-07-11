@@ -12,7 +12,7 @@ terraform {
   required_version = "~> 0.14"
 
   backend "remote" {
-    organization = "gogobogo"
+    organization = "REPLACE_ME"
 
     workspaces {
       name = "gh-actions-demo"
@@ -22,33 +22,35 @@ terraform {
 
 
 provider "aws" {
-  profile = "pseg"
-  region  = "eu-central-1"
+  region = "us-west-2"
 }
-# # Create access keys in aws cli cache
-# data "external" "caller_id" {
-#   program = ["aws", "sts", "get-caller-identity", "--profile", "hackatlon-admin", "--output", "json"]
-# }
 
-# # Fetch credentials from aws cli cache. Requires jq pkg
-# data "external" "aws_creds" {
-#   program    = ["jq", ".Credentials", "${pathexpand("~")}/${tolist(fileset(pathexpand("~"), ".aws/cli/cache/*.json"))[0]}"]
-#   depends_on = [data.external.caller_id]
-# }
 
-# provider "aws" {
-#   access_key = data.external.aws_creds.result["AccessKeyId"]
-#   secret_key = data.external.aws_creds.result["SecretAccessKey"]
-#   token      = data.external.aws_creds.result["SessionToken"]
-#   region     = var.region
-# }
 
-resource "aws_s3_bucket" "terrabucket" {
-  bucket = "pseg-terrabucket"
-  acl = "private"
+resource "random_pet" "sg" {}
 
-  tags = {
-    Name = "pseg-terrabucket"
-    Environment = "Dev"
+resource "aws_instance" "web" {
+  ami                    = "ami-830c94e3"
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.web-sg.id]
+
+  user_data = <<-EOF
+              #!/bin/bash
+              echo "Hello, World" > index.html
+              nohup busybox httpd -f -p 8080 &
+              EOF
+}
+
+resource "aws_security_group" "web-sg" {
+  name = "${random_pet.sg.id}-sg"
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
- }
+}
+
+output "web-address" {
+  value = "${aws_instance.web.public_dns}:8080"
+}
