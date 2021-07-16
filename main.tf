@@ -26,15 +26,12 @@ terraform {
 
 provider "nsxt" {
     host = "bubibimanlivebox.ddns.net"
-    username = "admin"
-    password = var.password
     allow_unverified_ssl = true
     max_retries = 10
     retry_min_delay = 500
     retry_max_delay = 5000
     retry_on_status_codes = [429]
 }
-
 
 resource "nsxt_policy_tier1_gateway" "tier1_gw" {
   description               = "Tier-1 provisioned by Terraform"
