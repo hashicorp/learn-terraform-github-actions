@@ -1,8 +1,12 @@
+provider "aws" {
+  region = "us-west-2"
+}
+
 terraform {
   required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "3.26.0"
+    nsxt = {
+       source = "vmware/nsxt"
+       version = ">= 3.1.1"
     }
     random = {
       source  = "hashicorp/random"
@@ -12,45 +16,28 @@ terraform {
   required_version = "~> 0.14"
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "Bubibi"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "netmemo"
     }
   }
 }
 
-
-provider "aws" {
-  region = "us-west-2"
+provider "nsxt" {
+    host = "bubibimanlivebox.ddns.net"
+    username = "admin"
+    password = var.password
+    allow_unverified_ssl = true
+    max_retries = 10
+    retry_min_delay = 500
+    retry_max_delay = 5000
+    retry_on_status_codes = [429]
 }
 
 
-
-resource "random_pet" "sg" {}
-
-resource "aws_instance" "web" {
-  ami                    = "ami-830c94e3"
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.web-sg.id]
-
-  user_data = <<-EOF
-              #!/bin/bash
-              echo "Hello, World" > index.html
-              nohup busybox httpd -f -p 8080 &
-              EOF
-}
-
-resource "aws_security_group" "web-sg" {
-  name = "${random_pet.sg.id}-sg"
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-output "web-address" {
-  value = "${aws_instance.web.public_dns}:8080"
+resource "nsxt_policy_tier1_gateway" "tier1_gw" {
+  description               = "Tier-1 provisioned by Terraform"
+  display_name              = "T1-TFC-test"
+  route_advertisement_types = ["TIER1_CONNECTED"]
 }
