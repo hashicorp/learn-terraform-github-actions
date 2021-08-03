@@ -15,7 +15,7 @@ terraform {
     organization = "Mindpoint Group"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "Org500-Pipeline"
     }
   }
 }
