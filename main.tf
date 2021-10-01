@@ -1,18 +1,13 @@
 terraform {
   required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "3.26.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "3.0.1"
+    uptimerobot = {
+      source  = "louy/uptimerobot"
+      version = "0.5.1"
     }
   }
-  required_version = ">= 0.14"
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "GH_Test"
 
     workspaces {
       name = "gh-actions-demo"
@@ -21,36 +16,12 @@ terraform {
 }
 
 
-provider "aws" {
-  region = "us-west-2"
+provider "uptimerobot" {
+  api_key = "FakeKey"
 }
 
-
-
-resource "random_pet" "sg" {}
-
-resource "aws_instance" "web" {
-  ami                    = "ami-830c94e3"
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.web-sg.id]
-
-  user_data = <<-EOF
-              #!/bin/bash
-              echo "Hello, World" > index.html
-              nohup busybox httpd -f -p 8080 &
-              EOF
-}
-
-resource "aws_security_group" "web-sg" {
-  name = "${random_pet.sg.id}-sg"
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-output "web-address" {
-  value = "${aws_instance.web.public_dns}:8080"
+resource "uptimerobot_monitor" "aaf_website" {
+  friendly_name = "AAF Website"
+  type          = "http"
+  url           = "http://www.aaf.edu.au"
 }
