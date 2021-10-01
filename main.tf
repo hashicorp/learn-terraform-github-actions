@@ -12,17 +12,17 @@ terraform {
   required_version = ">= 0.14"
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "monolithai"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "dp-gh-actions-test"
     }
   }
 }
 
 
 provider "aws" {
-  region = "us-west-2"
+  region = "eu-west-2"
 }
 
 
