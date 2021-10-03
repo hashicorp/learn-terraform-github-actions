@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 0.14"
 
   backend "remote" {
-    organization = "Dataiku"
+    organization = "Dataiku123"
 
     workspaces {
       name = "gh-actions-demo"
