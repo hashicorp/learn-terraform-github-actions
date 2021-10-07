@@ -10,22 +10,11 @@ terraform {
     }
   }
   required_version = ">= 0.14"
-
-  backend "remote" {
-    organization = "REPLACE_ME"
-
-    workspaces {
-      name = "gh-actions-demo"
-    }
-  }
 }
-
 
 provider "aws" {
   region = "us-west-2"
 }
-
-
 
 resource "random_pet" "sg" {}
 
