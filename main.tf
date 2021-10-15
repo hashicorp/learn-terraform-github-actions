@@ -12,17 +12,17 @@ terraform {
   required_version = ">= 0.14"
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "RHC"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "github-actions-demo"
     }
   }
 }
 
 
 provider "aws" {
-  region = "us-west-2"
+  region = "eu-west-2"
 }
 
 
@@ -30,7 +30,7 @@ provider "aws" {
 resource "random_pet" "sg" {}
 
 resource "aws_instance" "web" {
-  ami                    = "ami-830c94e3"
+  ami                    = "ami-0194c3e07668a7e36"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.web-sg.id]
 
