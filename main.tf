@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 0.14"
 
   backend "remote" {
-    organization = "REPLACE_ME_SRINI"
+    organization = "REPLACE_ME_SRINI1"
 
     workspaces {
       name = "gh-actions-demo"
