@@ -7,8 +7,3 @@ variable "region" {
   type    = string
   default = "us-central1"
 }
-
-variable "credentials" {
-  type    = string
-  default = "project.sa.json"
-}

@@ -15,9 +15,9 @@ terraform {
 }
 
 provider "google" {
-  region      = var.region
-  project     = var.project_id
-  credentials = file(var.credentials)
+  region      = "us-central1"
+  project     = "valid-hall-328809"
+  credentials = file("project.sa.json")
 
 }
 
