@@ -10,5 +10,5 @@ variable "region" {
 
 variable "credentials" {
   type    = string
-  default = "/Users/anim/learn-terraform-github-actions/project.sa.json"
+  default = "project.sa.json"
 }
