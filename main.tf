@@ -17,7 +17,7 @@ terraform {
 provider "google" {
   region      = var.region
   project     = var.project_id
-  credentials = file(var.credentials)
+  credentials = file("/Users/anim/learn-terraform-github-actions/project.sa.json")
 
 }
 
