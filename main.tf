@@ -17,7 +17,7 @@ terraform {
 provider "google" {
   region      = "us-central1"
   project     = "valid-hall-328809"
-  credentials = file("project.sa.json")
+  credentials = file("/Users/anim/learn-terraform-github-actions/project.sa.json")
 
 }
 
