@@ -17,12 +17,13 @@ terraform {
 provider "google" {
   region  = var.region
   project = var.project_id
+  credentials = file(var.credentials)
 
 }
 
 resource "google_compute_instance" "default" {
   name         = "test"
-  machine_type = "e2-medium"
+  machine_type = "n1-medium"
   zone         = "us-central1-a"
 
   tags = ["foo", "bar"]
