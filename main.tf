@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 0.14"
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "SyedOrg"
 
     workspaces {
       name = "gh-actions-demo"
@@ -36,7 +36,7 @@ resource "aws_instance" "web" {
 
   user_data = <<-EOF
               #!/bin/bash
-              echo "Hello, World" > index.html
+              echo "Hello, World1" > index.html
               nohup busybox httpd -f -p 8080 &
               EOF
 }
