@@ -25,8 +25,6 @@ provider "aws" {
   region = "us-west-2"
 }
 
-
-
 resource "random_pet" "sg" {}
 
 resource "aws_instance" "web" {
