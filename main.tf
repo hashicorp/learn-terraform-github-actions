@@ -15,7 +15,7 @@ terraform {
     organization = "TestAnushaOrg"
 
     workspaces {
-      name = "gh-actions-demoAPI"
+      name = "gh-actions-demo"
     }
   }
 }
