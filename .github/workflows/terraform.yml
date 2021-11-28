@@ -20,10 +20,6 @@ jobs:
           terraform_version: ">= 0.12"
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-      - name: Terraform Workspace
-        id: wsp
-        run: terraform workspace select dev
-
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check
@@ -31,7 +27,11 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-      
+
+      - name: Terraform Workspace
+        id: wsp
+        run: terraform workspace select dev
+
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
