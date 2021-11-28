@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./browseraction/index.css" />
+  </head>
+
+  <body>
+    <main>
+      <section>
+        <label for="kws">List of keywords (comma/newline separated) :</label>
+        <textarea id="kws" wrap="soft" tabindex="1"></textarea>
+      </section>
+
+      <section>
+        <button id="open" tabindex="2">Open URLs</button>
+      </section>
+
+      <label for="domain">Choose a target domain:</label>
+      <select name="domain" id="domain">
+        <option value="glp" selected>GLP</option>
+        <option value="yhs">YHS</option>
+      </select>
+
+      <select name="page" id="page">
+        <option value="fo/1.html" >fo/1.html</option>
+        <option value="fo/2.html" >fo/2.html</option>
+        <option value="fo/3.html" >fo/3.html</option>
+        <option value="fo/4.html" >fo/4.html</option>
+        <option value="fo/5.html" >fo/5.html</option>
+        <option value="fo/6.html" selected>fo/6.html</option>
+      </select>
+
+      <section>
+      <label for="sourcetag">Source Tag:</label>
+        <input type="text" id="sourcetag" name="sourcetag" value="yhs-fo10">
+      </section>
+
+      <label class="checkbox"
+      ><input type="checkbox" id="preserve" tabindex="5" /> Preserve
+        input</label>
+
+      <label class="checkbox"
+      ><input type="checkbox" id="closeTabs" tabindex="6" /> Close tabs</label>
+
+
+    </main>
+
+    <script src="./browseraction/index.ts"></script>
+  </body>
+</html>

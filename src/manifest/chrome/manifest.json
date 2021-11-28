@@ -1,0 +1,25 @@
+{
+  "name": "KW tool",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Opens a list of URLs",
+  "homepage_url": "https://github.com/htrinter/Open-Multiple-URLs",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "browser_action": {
+    "default_icon": "BAM.png",
+    "default_popup": "browseraction.html"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "notifications",
+    "http://*/",
+    "https://*/",
+    "downloads"
+  ],
+  "incognito": "split"
+}

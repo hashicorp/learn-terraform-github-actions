@@ -1,0 +1,41 @@
+{
+  "name": "open-multiple-urls",
+  "version": "1.5.3-SNAPSHOT",
+  "description": "Browser extension that opens a list of URLs",
+  "scripts": {
+    "dev:chrome": "NODE_ENV=chrome parcel watch src/*.html --out-dir dist-dev --no-hmr",
+    "build:chrome": "NODE_ENV=chrome parcel build src/*.html --out-dir dist-chrome",
+    "format": "npx prettier --write .",
+    "lint": "npx eslint . --fix --ext .ts,.js",
+    "zip:chrome": "mkdir -p dist-zip && zip -FSrj dist-zip/open-multiple-urls-$npm_package_version-chrome.zip dist-chrome"
+  },
+  "keywords": [],
+  "author": "https://github.com/htrinter/",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.24.0",
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-clean-dist": "0.0.6",
+    "parcel-plugin-static-files-copy": "^2.6.0",
+    "prettier": "2.2.1",
+    "ts-jest": "^26.5.5",
+    "typescript": "^4.2.4",
+    "webextension-polyfill-ts": "^0.24.0"
+  },
+  "dependencies": {
+    "csv-writer": "^1.6.0"
+  },
+  "staticFiles": {
+    "staticPath": [
+      {
+        "staticPath": "src/static"
+      },
+      {
+        "staticPath": "src/manifest/chrome/manifest.json",
+        "env": "chrome"
+      }
+    ],
+    "watcherGlob": "**"
+  }
+}
