@@ -1,56 +1,30 @@
 terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "3.26.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "3.0.1"
-    }
-  }
-  required_version = ">= 0.14"
-
-  backend "remote" {
-    organization = "REPLACE_ME"
-
-    workspaces {
-      name = "gh-actions-demo"
-    }
+  required_version = ">= 0.12"
+  backend "gcs" {
+    bucket = "bam-tf-state-prod"
   }
 }
 
-
-provider "aws" {
-  region = "us-west-2"
-}
-
-
-
-resource "random_pet" "sg" {}
-
-resource "aws_instance" "web" {
-  ami                    = "ami-830c94e3"
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.web-sg.id]
-
-  user_data = <<-EOF
-              #!/bin/bash
-              echo "Hello, World" > index.html
-              nohup busybox httpd -f -p 8080 &
-              EOF
-}
-
-resource "aws_security_group" "web-sg" {
-  name = "${random_pet.sg.id}-sg"
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+locals {
+  environments_project = {
+    dev    = "bam-big-data-dev",
+    prodga = "bam-big-data-312108"
   }
+
+  env_id = terraform.workspace
+
+  project_id = lookup(local.environments_project, terraform.workspace)
+  region     = "us-central1"
+  zone       = "us-central1-c"
+  bq_loction = "US"
 }
 
-output "web-address" {
-  value = "${aws_instance.web.public_dns}:8080"
+provider "google" {
+  project = local.project_id
+  region  = local.region
+  zone    = local.zone
+}
+
+resource "google_storage_bucket" "test_gh" {
+  name          = "test_gh_demo"
 }
