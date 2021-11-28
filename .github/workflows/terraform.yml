@@ -22,7 +22,7 @@ jobs:
 
       - name: Terraform Workspace
         id: wsp
-        run: terraform select workspace dev
+        run: terraform workspace select dev
 
       - name: Terraform Format
         id: fmt
