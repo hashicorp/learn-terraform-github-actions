@@ -1,8 +1,8 @@
 terraform {
   required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "3.26.0"
+    digitalocean = {
+      source  = "digitalocean/digitalocean"
+      version = "~> 2.0"
     }
     random = {
       source  = "hashicorp/random"
@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 0.14"
 
   backend "remote" {
-    organization = "REPLACE_ME"
+    organization = "exaf-epfl"
 
     workspaces {
       name = "gh-actions-demo"
@@ -21,36 +21,28 @@ terraform {
 }
 
 
-provider "aws" {
-  region = "us-west-2"
+provider "digitalocean" {
+  token = var.do_token
 }
-
-
 
 resource "random_pet" "sg" {}
 
-resource "aws_instance" "web" {
-  ami                    = "ami-830c94e3"
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.web-sg.id]
+resource "digitalocean_droplet" "web" {
+  image  = "ubuntu-20-04-x64"
+  name   = "${random_pet.sg.id}-sg"
+  region = "fra1"
+  size   = "s-1vcpu-1gb"
 
-  user_data = <<-EOF
-              #!/bin/bash
-              echo "Hello, World" > index.html
-              nohup busybox httpd -f -p 8080 &
-              EOF
-}
-
-resource "aws_security_group" "web-sg" {
-  name = "${random_pet.sg.id}-sg"
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+  provisioner "remote-exec" {
+    inline = [
+      "export PATH=$PATH:/usr/bin",
+      # install nginx
+      "sudo apt update",
+      "sudo apt install -y nginx"
+    ]
   }
 }
 
 output "web-address" {
-  value = "${aws_instance.web.public_dns}:8080"
+  value = web.public_ip
 }
