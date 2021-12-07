@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 0.14"
 
   backend "remote" {
-    organization = "landing.ai"
+    organization = "landing.ai.new"
 
     workspaces {
       name = "gh-actions-demo"
