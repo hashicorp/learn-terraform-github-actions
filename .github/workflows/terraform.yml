@@ -27,6 +27,8 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       - name: Terraform Workspace
         id: wsp
