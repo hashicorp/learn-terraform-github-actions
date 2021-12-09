@@ -50,7 +50,7 @@ resource "aws_security_group" "web-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
+#first comit
 output "web-address" {
   value = "${aws_instance.web.public_dns}:8080"
 }
