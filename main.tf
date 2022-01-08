@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "REPLACE_ME"
+    organization = "ckpo"
 
     workspaces {
       name = "gh-actions-demo"
@@ -30,7 +30,7 @@ provider "aws" {
 resource "random_pet" "sg" {}
 
 resource "aws_instance" "web" {
-  ami                    = "ami-830c94e3"
+  ami                    = "ami-0ed9277fb7eb570c9"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.web-sg.id]
 
