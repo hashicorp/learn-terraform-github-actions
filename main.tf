@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "REPLACE_ME"
+    organization = "Vivid Solutions"
 
     workspaces {
       name = "gh-actions-demo"
@@ -22,7 +22,7 @@ terraform {
 
 
 provider "aws" {
-  region = "us-west-2"
+  region = "ca-central-1"
 }
 
 
