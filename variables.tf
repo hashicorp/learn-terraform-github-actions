@@ -45,5 +45,5 @@ variable "aks_cluster_default_role_based_access_control_enabled" {
 
 variable "aks_cluster_default_tags_environment" {
   default = "production"
-} 
+}
 
