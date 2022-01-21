@@ -1,3 +1,11 @@
+variable "ARM_CLIENT_ID" {
+  default = "xxxxxx"
+}
+
+variable "ARM_CLIENT_SECRET" {
+  default = "xxxxxx"
+}
+
 variable "resource_group_name" {
   default = "commerceprowess-rg"
 }
