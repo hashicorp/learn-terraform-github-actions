@@ -12,17 +12,17 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "REPLACE_ME"
+    organization = "sirrico-net"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "Website-Environment"
     }
   }
 }
 
 
 provider "aws" {
-  region = "us-west-2"
+  region = "us-east-1"
 }
 
 
