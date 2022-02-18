@@ -18,25 +18,12 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-west-2"
-}
-
-resource "random_pet" "sg" {}
-
-resource "aws_instance" "web" {
-  ami                    = "ami-830c94e3"
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.web-sg.id]
-
-  user_data = <<-EOF
-              #!/bin/bash
-              echo "Hello, World Alex" > index.html
-              nohup busybox httpd -f -p 8080 &
-              EOF
+  profile = "default"
+  region  = "us-west-2"
 }
 
 resource "aws_security_group" "web-sg" {
-  name   = "${random_pet.sg.id}-sg"
+  name   = "sg-web"
   vpc_id = module.vpc.vpc_id
   ingress {
     from_port   = 8080
@@ -46,8 +33,16 @@ resource "aws_security_group" "web-sg" {
   }
 }
 
-output "web-address" {
-  value = "${aws_instance.web.public_dns}:8080"
+resource "aws_instance" "web" {
+  ami                    = "ami-090bc08d7ae1f3881"
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.web-sg.id]
+
+  user_data = <<-EOF
+              #!/bin/bash
+              echo "Hello, World Alex" > index.html
+              nohup busybox httpd -f -p 8080 &
+              EOF
 }
 
 module "vpc" {
