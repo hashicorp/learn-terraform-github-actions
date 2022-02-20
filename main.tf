@@ -11,6 +11,15 @@ terraform {
   }
   required_version = ">= 1.1.0"
 
+  backend "remote" {
+    organization = "acg-terraform-greylord"
+
+    workspaces {
+      name = "gh-actions-demo1"
+    }
+
+  }
+
   cloud {
     organization = "acg-terraform-greylord"
 
