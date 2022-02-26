@@ -12,10 +12,10 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "example-org-2c6b5d"
+    organization = "cyberorg"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "learn-terrafom-github-actions"
     }
   }
 }
