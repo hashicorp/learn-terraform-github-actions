@@ -24,6 +24,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
+
 resource "random_pet" "sg" {}
 
 data "aws_ami" "ubuntu" {
