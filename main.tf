@@ -12,8 +12,8 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "REPLACE_ME"
-
+    organization = "YOUR_ORGANIZATION_NAME"
+    # organization = "Branch"
     workspaces {
       name = "gh-actions-demo"
     }
