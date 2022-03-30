@@ -1,79 +1,96 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "3.26.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "3.0.1"
-    }
-  }
-  required_version = ">= 1.1.0"
 
-  cloud {
-    organization = "REPLACE_ME"
-
-    workspaces {
-      name = "gh-actions-demo"
-    }
-  }
-}
 
 provider "aws" {
-  region = "us-west-2"
+  region = var.aws_account_region
+  access_key       = var.aws_access_key
+  secret_key       = var.aws_secret_key
 }
 
-resource "random_pet" "sg" {}
-
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
+terraform {
+	backend "remote" {
+		organization = "3miliomclabs" # org name from step 2.
+		workspaces {
+			name = "Lattice_Test" # name for your app's state.
+		}
+	}
 }
 
-resource "aws_instance" "web" {
-  ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.web-sg.id]
-
-  user_data = <<-EOF
-              #!/bin/bash
-              apt-get update
-              apt-get install -y apache2
-              sed -i -e 's/80/8080/' /etc/apache2/ports.conf
-              echo "Hello World" > /var/www/html/index.html
-              systemctl restart apache2
-              EOF
-}
-
-resource "aws_security_group" "web-sg" {
-  name = "${random_pet.sg.id}-sg"
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  // connectivity to ubuntu mirrors is required to run `apt-get update` and `apt-get install apache2`
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+locals {
+  tags = {
+    "Entorno"        = var.workload_environment
+    "Aplicacion" = var.workload_app_name
   }
 }
 
-output "web-address" {
-  value = "${aws_instance.web.public_dns}:8080"
+module "secrets" {
+  source             = "./aws-secrets"
+  name               = var.workload_app_name
+}
+
+module "vpc" {
+  source             = "./aws-vpc"
+  name               = var.workload_app_name
+  cidr               = var.cidr
+  private_subnets    = var.private_subnets
+  public_subnets     = var.public_subnets
+  availability_zones = var.availability_zones
+  environment        = var.workload_environment
+}
+
+module "security_groups" {
+  source         = "./aws-security-groups"
+  name           = var.workload_app_name
+  vpc_id         = module.vpc.id
+  environment    = var.workload_environment
+  container_port = var.container_port
+}
+
+module "alb" {
+  source              = "./aws-alb"
+  name                = var.workload_app_name
+  vpc_id              = module.vpc.id
+  subnets             = module.vpc.public_subnets
+  environment         = var.workload_environment
+  alb_security_groups = [module.security_groups.alb]
+  alb_tls_cert_arn    = var.tsl_certificate_arn
+  health_check_path   = var.health_check_path
+}
+
+
+module "iam" {
+  source      = "./aws-iam"
+  name        = var.workload_app_name
+  environment = var.workload_environment
+}
+
+module "ecr" {
+  source      = "./aws-ecr"
+  name        = var.workload_app_name
+  environment = var.workload_environment
+}
+
+module "ecs" {
+  source                      = "./aws-ecs"
+  name                        = var.workload_app_name
+  environment                 = var.workload_environment
+  region                      = var.location
+  subnets                     = module.vpc.private_subnets
+  aws_alb_target_group_arn    = module.alb.aws_alb_target_group_arn
+  ecs_service_security_groups = [module.security_groups.ecs_tasks]
+  container_port              = var.container_port
+  container_cpu               = var.container_cpu
+  container_memory            = var.container_memory
+  service_desired_count       = var.service_desired_count
+  container_image             = var.container_image
+  iam_ecs_task_execution_role_arn = module.iam.iam_ecs_task_execution_role_arn
+  container_environment = [
+    { name = "LOG_LEVEL",
+    value = "DEBUG" },
+    { name = "PORT",
+    value = var.container_port }
+  ]
+  
+  #container_secrets      = module.secrets.secrets_map
+  #aws_ecr_repository_url = module.ecr.aws_ecr_repository_url
+  #container_secrets_arns = module.secrets.application_secrets_arn
 }

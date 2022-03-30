@@ -1,0 +1,38 @@
+Terraform 0.11 and earlier required all non-constant expressions to be
+provided via interpolation syntax, but this pattern is now deprecated. To
+silence this warning, remove the "${ sequence from the start and the }"
+sequence from the end of this expression, leaving just the inner expression.
+
+Template interpolation syntax is still used to construct strings from
+expressions when the template includes multiple interpolation sequences or a
+mixture of literal strings and interpolations. This deprecation applies only
+to templates that consist entirely of a single interpolation sequence.
+
+
+Error: InvalidParameter: 1 validation error(s) found.
+- minimum field size of 100, PutLifecyclePolicyInput.LifecyclePolicyText.
+
+
+  on aws-ecr/main.tf line 10, in resource "aws_ecr_lifecycle_policy" "main":
+  10: resource "aws_ecr_lifecycle_policy" "main" {
+
+
+
+Error: failed creating ECS service (ratherlabs-service-dev): InvalidParameterException: Specifying both a launch type and capacity provider strategy is not supported. Remove one and try again.
+
+  on aws-ecs/main.tf line 18, in resource "aws_ecs_service" "main":
+  18: resource "aws_ecs_service" "main" {
+
+
+
+Error: error creating Secrets Manager Secret: InvalidRequestException: You can't create this secret because a secret with this name is already scheduled for deletion.
+
+  on aws-secrets/main.tf line 8, in resource "aws_secretsmanager_secret" "vault_api_secret":
+   8: resource "aws_secretsmanager_secret" "vault_api_secret" {
+
+
+
+Error: Creating CloudWatch Log Group failed: ResourceAlreadyExistsException: The specified log group already exists:  The CloudWatch Log Group 'ratherlabs-cloudwatch-log-group' already exists.
+
+  on aws-vpc/main.tf line 119, in resource "aws_cloudwatch_log_group" "main":
+ 119: resource "aws_cloudwatch_log_group" "main" {
