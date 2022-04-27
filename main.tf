@@ -12,16 +12,16 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "REPLACE_ME"
+    organization = "thefork"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "core-application-config-test"
     }
   }
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = "us-west-3"
 }
 
 resource "random_pet" "sg" {}
