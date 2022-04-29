@@ -20,7 +20,7 @@ terraform {
   }
 }
 
-#add something here......
+#add something here..
 provider "aws" {
   region = "us-west-2"
 }
