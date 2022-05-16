@@ -16,7 +16,7 @@ terraform {
   }
 }
 
-variable "secret" {
+variable "TERRAFORM_CLIENT_SECRET" {
   description = "The client secret"
   type        = string
   sensitive   = true
@@ -24,7 +24,7 @@ variable "secret" {
 
 provider "keycloak" {
   client_id     = "terraform"
-  client_secret = var.secret
+  client_secret = var.TERRAFORM_CLIENT_SECRET
   url           = "https://common-logon-dev.hlth.gov.bc.ca"
   realm         = "moh_applications"
 }
