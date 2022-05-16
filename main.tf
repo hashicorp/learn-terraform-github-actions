@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     keycloak = {
-      source = "mrparkers/keycloak"
+      source  = "mrparkers/keycloak"
       version = ">= 3.0.0"
     }
   }
@@ -23,15 +23,15 @@ variable "secret" {
 }
 
 provider "keycloak" {
-  client_id       = "terraform"
-  client_secret   = var.secret
-  url      = "https://common-logon-dev.hlth.gov.bc.ca"
-  realm           = "moh_applications"
+  client_id     = "terraform"
+  client_secret = var.secret
+  url           = "https://common-logon-dev.hlth.gov.bc.ca"
+  realm         = "moh_applications"
 }
 
 resource "keycloak_openid_client" "clientName" {
-  realm_id            = "moh_applications"
-  client_id           = "new-client1"
-  access_type         = "CONFIDENTIAL"
-  name                = "hi mom"
+  realm_id    = "moh_applications"
+  client_id   = "new-client1"
+  access_type = "CONFIDENTIAL"
+  name        = "hi mom"
 }
