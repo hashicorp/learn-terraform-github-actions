@@ -31,7 +31,7 @@ provider "keycloak" {
 
 resource "keycloak_openid_client" "clientName" {
   realm_id    = "moh_applications"
-  client_id   = "new-client1"
+  client_id   = "new-client2"
   access_type = "CONFIDENTIAL"
   name        = "hi mom"
 }
