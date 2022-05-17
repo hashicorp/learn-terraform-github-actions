@@ -35,6 +35,8 @@ jobs:
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
+        env:
+          TF_VAR_TERRAFORM_CLIENT_SECRET: ${{ secrets.TF_TERRAFORM_CLIENT_SECRET }}
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
