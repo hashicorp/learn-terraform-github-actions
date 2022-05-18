@@ -28,10 +28,3 @@ provider "keycloak" {
   url           = "https://common-logon-dev.hlth.gov.bc.ca"
   realm         = "moh_applications"
 }
-
-resource "keycloak_openid_client" "clientName" {
-  realm_id    = "moh_applications"
-  client_id   = "new-client2"
-  access_type = "CONFIDENTIAL"
-  name        = "hi mom"
-}
