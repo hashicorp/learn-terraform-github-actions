@@ -10,6 +10,10 @@ jobs:
   terraform:
     name: "Terraform"
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    env:
+      TF_VAR_TERRAFORM_CLIENT_SECRET: ${{ secrets.TF_TERRAFORM_CLIENT_SECRET }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -75,6 +79,4 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        env:
-          TF_VAR_TERRAFORM_CLIENT_SECRET: ${{ secrets.TF_TERRAFORM_CLIENT_SECRET }}
         run: terraform apply -auto-approve -input=false
