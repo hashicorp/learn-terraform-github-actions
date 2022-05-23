@@ -4,7 +4,11 @@ on:
   push:
     branches:
       - main
+    paths:
+      - <work_dir>/**.tf
   pull_request:
+    paths:
+      - <work_dir>/**.tf
 
 jobs:
   terraform:
