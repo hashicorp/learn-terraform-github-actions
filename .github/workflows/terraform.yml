@@ -1,4 +1,4 @@
-name: "Terraform"
+name: "My Terraform"
 
 on:
   push:
@@ -22,18 +22,22 @@ jobs:
 
       - name: Terraform Format
         id: fmt
+        working-directory: .github/action/test
         run: terraform fmt -check
 
       - name: Terraform Init
         id: init
+        working-directory: .github/action/test
         run: terraform init
       
       - name: Terraform Validate
         id: validate
+        working-directory: .github/action/test
         run: terraform validate -no-color
 
       - name: Terraform Plan
         id: plan
+        working-directory: .github/action/test
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false
         continue-on-error: true
@@ -73,4 +77,5 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        working-directory: .github/action/test
         run: terraform apply -auto-approve -input=false
