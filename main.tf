@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "systemops"
+    organization = "systemops IT"
 
     workspaces {
       name = "gh-actions-demo"
