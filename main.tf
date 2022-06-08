@@ -26,10 +26,10 @@ provider "aws" {
 
 
 resource "aws_instance" "EC2-Instance" {
-  ami           = var.ami_id
-  key_name = "ami-0487b1fe60c1fd1a2"
-  instance_type = "t2.micro"
-  security_groups= ["EC2-security-group"]
+  ami             = "ami-0487b1fe60c1fd1a2"
+  key_name 	      = "yogender_new_aws_keypair"
+  instance_type   = "t2.micro"
+  security_groups = ["EC2-security-group"]
   
 
   user_data = <<-EOF
