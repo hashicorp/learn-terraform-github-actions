@@ -104,8 +104,8 @@ resource "aws_organizations_policy" "deny_region_interaction" {
 
 resource "aws_organizations_policy_attachment" "deny_region_interaction_attachment" {
   policy_id = aws_organizations_policy.deny_region_interaction.id
-  //target_id = var.target_id
-  target_id = "ou-a6ih-akiwo6r2"
+  target_id = var.target_id
+  //target_id = "ou-a6ih-akiwo6r2"
 }
 
 
