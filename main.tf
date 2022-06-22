@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "hello-world-ci-cd"
+    organization = "hello-world-ci-cid"
 
     workspaces {
       name = "gh-actions-demo"
