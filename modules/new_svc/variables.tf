@@ -19,3 +19,15 @@ variable "max_replica" {
   type = number
   default = 3
 }
+
+variable "project_id" {
+  type = string
+}
+
+variable "location" {
+  type = string
+}
+
+variable "cluster" {
+  type = string
+}

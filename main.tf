@@ -14,12 +14,12 @@ terraform {
 
 provider "google" {
   project = var.project_id
-  region  = "us-central1"
+  region  = var.location
 }
 
 provider "google-beta" {
   project = var.project_id
-  region  = "us-central1"
+  region  = var.location
 }
 
 provider "github" {
@@ -44,6 +44,10 @@ resource "google_service_account" "gke_sa" {
   display_name = "Github Service Account"
 }
 
+data "google_container_cluster" "demo_cluster" {
+  name     = "demo"
+}
+
 module "hello_service" {
   providers = {
     github = github.github
@@ -52,4 +56,7 @@ module "hello_service" {
   service_name      = "hello"
   workload_identity = module.gh_oidc.provider_name
   service_account   = google_service_account.gke_sa.email
+  project_id        = var.project_id
+  cluster           = "demo"
+  location          = var.location
 }
