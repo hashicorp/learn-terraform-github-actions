@@ -46,7 +46,7 @@ resource "google_service_account" "gke_sa" {
 
 module "hello_service" {
   providers = {
-      github = github.github
+    github = github.github
   }
   source            = "./modules/new_svc"
   service_name      = "hello"
