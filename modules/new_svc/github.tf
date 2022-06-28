@@ -47,7 +47,7 @@ resource "github_repository_file" "hpa" {
   commit_author       = "Terraform User"
   commit_email        = "terraform@example.com"
   overwrite_on_create = true
-  depends_on = [github_repository_file.env]
+#   depends_on = [github_repository_file.env]
 }
 
 
