@@ -48,7 +48,7 @@ resource "github_repository_file" "env" {
   repository          = github_repository.service_repo.name
   branch              = "main"
   file                = ".env"
-  content             = templatefile("${path.module}/templates/.env.tftpl",{ deploy_name = var.service_name, image = var.service_name, workload_identity = var.workload_identity, service_account = var.service_account})
+  content             = templatefile("${path.module}/templates/.env.tftpl",{ deploy_name = var.service_name, image_name = var.service_name, workload_identity = var.workload_identity, service_account = var.service_account})
   commit_message      = "Managed by Terraform env var"
   commit_author       = "Terraform User"
   commit_email        = "terraform@example.com"
