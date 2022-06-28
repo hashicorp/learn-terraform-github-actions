@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${deploy_name}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${deploy_name}
+  template:
+    metadata:
+      labels:
+        app: ${deploy_name}
+    spec:
+      containers:
+      - name: ${deploy_name}
+        image: gcr.io/PROJECT_ID/IMAGE:TAG
+        # This app listens on port 8080 for web traffic by default.
+        ports:
+        - containerPort: 8080
+        env:
+          - name: PORT
+            value: "8080"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello
+spec:
+  type: LoadBalancer
+  selector:
+    app: hello
+  ports:
+  - port: 80
+    targetPort: 8080
+---
