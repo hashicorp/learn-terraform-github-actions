@@ -44,6 +44,13 @@ resource "google_service_account" "gke_sa" {
   display_name = "Github Service Account"
 }
 
+resource "google_project_iam_member" "gke" {
+  project = "your-project-id"
+  role    = "roles/container.admin"
+  member  = "serviceAccount:${google_service_account.gke_sa.email}"
+}
+
+
 data "google_container_cluster" "demo_cluster" {
   name     = "demo"
   location = "${var.location}-c"
