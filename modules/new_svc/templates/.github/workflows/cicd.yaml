@@ -33,8 +33,7 @@ jobs:
           workload_identity_provider: '${{ env.WORKLOAD_IDENTITY }}'
           service_account: '${{ env.SERVICEACCOUNT}}'
     
-      - run: gcloud --quiet auth configure-docker
-
+      
 
       # Get the GKE credentials so we can deploy to the cluster
       - uses: google-github-actions/get-gke-credentials@v0.4.0
@@ -50,6 +49,7 @@ jobs:
             --build-arg GITHUB_SHA="$GITHUB_SHA" \
             --build-arg GITHUB_REF="$GITHUB_REF" \
             .
+      - run: gcloud --quiet auth configure-docker
       - name: push image
         run: |-
           docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
