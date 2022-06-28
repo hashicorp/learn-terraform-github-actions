@@ -50,6 +50,18 @@ resource "github_repository_file" "hpa" {
 #   depends_on = [github_repository_file.env]
 }
 
+resource "github_repository_file" "kustomization" {
+  repository          = github_repository.service_repo.name
+  branch              = "main"
+  file                = "kustomization.yaml"
+  content             = file("${path.module}/templates/kustomization.yaml")
+  commit_message      = "Managed by Terraform deployment"
+  commit_author       = "Terraform User"
+  commit_email        = "terraform@example.com"
+  overwrite_on_create = true
+  depends_on = [github_repository_file.deployment]
+}
+
 
 # resource "github_repository_file" "env" {
 #   repository          = github_repository.service_repo.name
