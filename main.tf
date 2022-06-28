@@ -24,6 +24,7 @@ provider "google-beta" {
 
 provider "github" {
   token = var.token
+  alias = "github"
 }
 
 module "gh_oidc" {
@@ -44,6 +45,9 @@ resource "google_service_account" "gke_sa" {
 }
 
 module "hello_service" {
+  providers = {
+      github = github.github
+  }
   source            = "./modules/new_svc"
   service_name      = "hello"
   workload_identity = module.gh_oidc.provider_name
