@@ -51,16 +51,16 @@ resource "github_repository_file" "hpa" {
 }
 
 
-resource "github_repository_file" "env" {
-  repository          = github_repository.service_repo.name
-  branch              = "main"
-  file                = ".env"
-  content             = templatefile("${path.module}/templates/.env.tftpl",{ deploy_name = var.service_name, image_name = var.service_name, workload_identity = var.workload_identity, service_account = var.service_account})
-  commit_message      = "Managed by Terraform env var"
-  commit_author       = "Terraform User"
-  commit_email        = "terraform@example.com"
-  overwrite_on_create = true
-}
+# resource "github_repository_file" "env" {
+#   repository          = github_repository.service_repo.name
+#   branch              = "main"
+#   file                = ".env"
+#   content             = templatefile("${path.module}/templates/.env.tftpl",{ deploy_name = var.service_name, image_name = var.service_name, workload_identity = var.workload_identity, service_account = var.service_account})
+#   commit_message      = "Managed by Terraform env var"
+#   commit_author       = "Terraform User"
+#   commit_email        = "terraform@example.com"
+#   overwrite_on_create = true
+# }
 
 resource "github_actions_secret" "project_id" {
   repository       = github_repository.service_repo.name
@@ -76,4 +76,27 @@ resource "github_actions_secret" "location" {
   repository       = github_repository.service_repo.name
   secret_name      = "GKE_ZONE"
   plaintext_value  = var.location
+}
+
+
+resource "github_actions_secret" "image" {
+  repository       = github_repository.service_repo.name
+  secret_name      = "IMAGE_NAME"
+  plaintext_value  = var.service_name
+}
+resource "github_actions_secret" "deploy" {
+  repository       = github_repository.service_repo.name
+  secret_name      = "DEPLOY_NAME"
+  plaintext_value  = var.service_name
+}
+resource "github_actions_secret" "wi" {
+  repository       = github_repository.service_repo.name
+  secret_name      = "WORKLOAD_IDENTITY"
+  plaintext_value  = var.workload_identity
+}
+
+resource "github_actions_secret" "sa" {
+  repository       = github_repository.service_repo.name
+  secret_name      = "SERVICE_ACCOUNT"
+  plaintext_value  = var.service_account
 }
