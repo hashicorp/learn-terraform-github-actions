@@ -39,7 +39,7 @@ module "gh_oidc" {
   }
 }
 resource "google_service_account" "gke_sa" {
-  account_id   = "github_sa"
+  account_id   = "github-sa"
   display_name = "Github Service Account"
 }
 
