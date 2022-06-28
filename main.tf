@@ -45,7 +45,8 @@ resource "google_service_account" "gke_sa" {
 }
 
 data "google_container_cluster" "demo_cluster" {
-  name = "demo"
+  name     = "demo"
+  location = "${var.location}-c"
 }
 
 module "hello_service" {
