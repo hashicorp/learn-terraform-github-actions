@@ -50,6 +50,11 @@ resource "google_project_iam_member" "gke" {
   member  = "serviceAccount:${google_service_account.gke_sa.email}"
 }
 
+resource "google_project_iam_member" "gcr" {
+  project = var.project_id
+  role    = "roles/storage.admin"
+  member  = "serviceAccount:${google_service_account.gke_sa.email}"
+}
 
 data "google_container_cluster" "demo_cluster" {
   name     = "demo"
