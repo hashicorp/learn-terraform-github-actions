@@ -3,6 +3,6 @@ variable "project_id" {
 }
 
 variable "token" {
-  type = string
-  sensitive   = true
+  type      = string
+  sensitive = true
 }

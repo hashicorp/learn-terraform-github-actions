@@ -7,19 +7,19 @@ terraform {
   }
   required_version = ">= 1.1.0"
   backend "gcs" {
-    bucket  = "cicd-playground-liaurora"
-    prefix  = "terraform/state"
+    bucket = "cicd-playground-liaurora"
+    prefix = "terraform/state"
   }
 }
 
 provider "google" {
-  project     = var.project_id
-  region      = "us-central1"
+  project = var.project_id
+  region  = "us-central1"
 }
 
 provider "google-beta" {
-  project     = var.project_id
-  region      = "us-central1"
+  project = var.project_id
+  region  = "us-central1"
 }
 
 provider "github" {
@@ -44,8 +44,8 @@ resource "google_service_account" "gke_sa" {
 }
 
 module "hello_service" {
-  source = "./modules/new_svc"
-  service_name = "hello"
+  source            = "./modules/new_svc"
+  service_name      = "hello"
   workload_identity = module.gh_oidc.provider_name
-  service_account = google_service_account.gke_sa.email
+  service_account   = google_service_account.gke_sa.email
 }
