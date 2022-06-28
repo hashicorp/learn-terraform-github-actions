@@ -8,6 +8,6 @@ variable "token" {
 }
 
 variable "location" {
-    type = string
-    default = "us-central1"
+  type    = string
+  default = "us-central1"
 }
