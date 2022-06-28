@@ -6,6 +6,8 @@ on:
   pull_request:
     branches:
       - main
+permissions:
+  id-token: write
 
 env:
   PROJECT_ID: '${{ secrets.GKE_PROJECT_ID }}'
@@ -15,6 +17,7 @@ env:
   DEPLOYMENT_NAME: '${{ secrets.DEPLOY_NAME }}'
   WORKLOAD_IDENTITY: '${{ secrets.WORKLOAD_IDENTITY }}'
   SERVICEACCOUNT: '${{ secrets.SERVICE_ACCOUNT }}'
+  ACTIONS_ID_TOKEN_REQUEST_URL: 
 
 
 jobs:
