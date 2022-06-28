@@ -45,8 +45,8 @@ resource "google_service_account" "gke_sa" {
 }
 
 resource "google_project_iam_member" "gke" {
-  role    = "roles/container.admin"
-  member  = "serviceAccount:${google_service_account.gke_sa.email}"
+  role   = "roles/container.admin"
+  member = "serviceAccount:${google_service_account.gke_sa.email}"
 }
 
 
