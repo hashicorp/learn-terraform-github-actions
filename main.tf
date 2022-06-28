@@ -66,5 +66,5 @@ module "hello_service" {
   service_account   = google_service_account.gke_sa.email
   project_id        = var.project_id
   cluster           = "demo"
-  location          = var.location
+  location          = "${var.location}-c"
 }
