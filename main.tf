@@ -12,16 +12,16 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "REPLACE_ME"
+    organization = "Proshore test"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "terraform-learning"
     }
   }
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = "eu-west-1"
 }
 
 resource "random_pet" "sg" {}
