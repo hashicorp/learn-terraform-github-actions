@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "update_tfc_backend"
+    organization = "update_tfc_backend_new"
 
     workspaces {
       name = "gh-actions-demo"
