@@ -20,6 +20,8 @@ terraform {
   }
 }
 
+#changes
+
 provider "aws" {
   region = "us-west-2"
 }
