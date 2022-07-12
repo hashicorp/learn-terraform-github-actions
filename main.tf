@@ -155,6 +155,37 @@ resource "aws_organizations_policy_attachment" "require_mfa_ec2_actions_attachme
 }
 
 
+
+# permission set example
+
+data "aws_ssoadmin_instances" "example" {}
+
+resource "aws_ssoadmin_permission_set" "example" {
+  name         = "Example"
+  instance_arn = tolist(data.aws_ssoadmin_instances.example.arns)[0]
+}
+
+data "aws_iam_policy_document" "example" {
+  statement {
+    sid = "1"
+
+    actions = [
+      "s3:ListAllMyBuckets",
+      "s3:GetBucketLocation",
+    ]
+
+    resources = [
+      "arn:aws:s3:::*",
+    ]
+  }
+}
+
+resource "aws_ssoadmin_permission_set_inline_policy" "example" {
+  inline_policy      = data.aws_iam_policy_document.example.json
+  instance_arn       = aws_ssoadmin_permission_set.example.instance_arn
+  permission_set_arn = aws_ssoadmin_permission_set.example.arn
+}
+
 output "web-address" {
   value = "${aws_instance.web.public_dns}:8080"
 }
