@@ -74,9 +74,9 @@ resource "aws_security_group" "web-sg" {
   }
 }
 
-// new code by murali
+// new code by murali on july 12
 
-#-----security_controls_scp/modules/account/deny_region_interaction.tf----#
+#----- july 12 changes security_controls_scp/modules/account/deny_region_interaction.tf----#
 
 data "aws_iam_policy_document" "deny_region_interaction" {
   statement {
@@ -111,7 +111,7 @@ resource "aws_organizations_policy_attachment" "deny_region_interaction_attachme
 
 
 // Require MFA
-#-----security_controls_scp/modules/ec2/require_mfa_actions.tf----#
+#----- testing on july 12 security_controls_scp/modules/ec2/require_mfa_actions.tf----#
 
 ## Requires a MFA'd account to perform certain EC2 Actions
 
