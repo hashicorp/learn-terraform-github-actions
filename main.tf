@@ -74,7 +74,7 @@ resource "aws_security_group" "web-sg" {
   }
 }
 
-// new code by murali on july 12
+// new code by murali on july 12-1
 
 #----- july 12 changes security_controls_scp/modules/account/deny_region_interaction.tf----#
 
