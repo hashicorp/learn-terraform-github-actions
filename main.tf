@@ -156,7 +156,7 @@ resource "random_pet" "sg" {}
 
 
 
-# permission set example - perm set only 1
+# permission set example - bucket test1
 
 data "aws_ssoadmin_instances" "example" {}
 
