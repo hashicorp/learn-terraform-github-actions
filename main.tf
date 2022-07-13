@@ -173,6 +173,7 @@ data "aws_iam_policy_document" "example" {
       "s3:ListAllMyBuckets",
       "s3:PutObject",
       "s3:CreateBucket",
+      "s3:DeleteBucket",
       "s3:GetBucketLocation",
     ]
 
