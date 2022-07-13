@@ -171,6 +171,7 @@ data "aws_iam_policy_document" "example" {
 
     actions = [
       "s3:ListAllMyBuckets",
+      "s3:PutObject",
       "s3:GetBucketLocation",
     ]
 
