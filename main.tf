@@ -205,7 +205,7 @@ resource "aws_ssoadmin_managed_policy_attachment" "example" {
 #AWSCloudTrailReadOnlyAccess
 #AmazonEC2FullAccess
 #AmazonS3FullAccess
-#cloudwatch:*
+#cloudwatch:* full access
 
 
 #output "web-address" {
