@@ -191,6 +191,23 @@ resource "aws_ssoadmin_permission_set_inline_policy" "example" {
   permission_set_arn = aws_ssoadmin_permission_set.example.arn
 }
 
+resource "aws_ssoadmin_managed_policy_attachment" "example" {
+  instance_arn       = data.aws_iam_policy_document.example.json
+  managed_policy_arn = "arn:aws:iam::aws:policy/AWSLambda_FullAccess, arn:aws:iam::aws:policy/AWSCloudTrailReadOnlyAccess, arn:aws:iam::aws:policy/AmazonEC2FullAccess, arn:aws:iam::aws:policy/AmazonS3FullAccess, arn:aws:iam::aws:policy/CloudWatchFullAccess"
+  permission_set_arn = aws_ssoadmin_permission_set.example.arn
+}
+
+
+
+
+#
+#AWSLambda_FullAccess
+#AWSCloudTrailReadOnlyAccess
+#AmazonEC2FullAccess
+#AmazonS3FullAccess
+#cloudwatch:*
+
+
 #output "web-address" {
 #  value = "${aws_instance.web.public_dns}:8080"
 #}
