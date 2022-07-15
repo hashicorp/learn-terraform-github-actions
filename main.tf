@@ -209,7 +209,7 @@ resource "aws_ssoadmin_managed_policy_attachment" "example" {
 
 
 
-# original code
+# original code1
 
 #AWSLambda_FullAccess
 #AWSCloudTrailReadOnlyAccess
