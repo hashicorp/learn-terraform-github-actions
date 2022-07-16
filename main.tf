@@ -15,7 +15,7 @@ terraform {
     organization = "dhakshsolutions"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "Infra-Management"
     }
   }
 }
