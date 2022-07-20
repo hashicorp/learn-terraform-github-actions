@@ -24,7 +24,8 @@ provider "aws" {
   region = "ap-southeast-2"
 }
 
-resource "random_pet" "sg" {}
+resource "random_pet" "sg" {
+}
 
 data "aws_ami" "ubuntu" {
   most_recent = true
@@ -40,16 +41,15 @@ data "aws_ami" "ubuntu" {
   }
 
   owners = ["099720109477"] # Canonical
-
-  tags = {
-    name = "sam-gh-actions-demo"
-  }
 }
 
 resource "aws_instance" "web" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.web-sg.id]
+  tags = {
+    name = "sam-gh-actions-demo"
+  }
 
   user_data = <<-EOF
               #!/bin/bash
