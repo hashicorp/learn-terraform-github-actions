@@ -40,6 +40,10 @@ data "aws_ami" "ubuntu" {
   }
 
   owners = ["099720109477"] # Canonical
+
+  tags = {
+    name = "sam-gh-actions-demo"
+  }
 }
 
 resource "aws_instance" "web" {
