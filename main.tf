@@ -12,6 +12,7 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
+
     organization = "joria"
 
     workspaces {
@@ -29,15 +30,15 @@ resource "random_pet" "sg" {}
 data "aws_ami" "ubuntu" {
   most_recent = true
 
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
+  //filter {
+//    name   = "name"
+    //values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  //}
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
+  //filter {
+//    name   = "virtualization-type"
+    //values = ["hvm"]
+  //}
 
   owners = ["026467586392"] # Canonical
 }
