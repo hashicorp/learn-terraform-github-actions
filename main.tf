@@ -10,18 +10,16 @@ terraform {
     }
   }
   required_version = ">= 1.1.0"
-
   cloud {
-    organization = "REPLACE_ME"
+    organization = "cerchiariluiza"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "worbee2pay"
     }
   }
 }
-
 provider "aws" {
-  region = "us-west-2"
+  region = "sa-east-1"
 }
 
 resource "random_pet" "sg" {}
