@@ -12,10 +12,10 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "REPLACE_ME"
+    organization = "igor-test5432"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "ItocGitHubActions"
     }
   }
 }
