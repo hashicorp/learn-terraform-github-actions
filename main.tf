@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "hashicorp-learn-cicd"
+    organization = "hashicorp-learn-cicd" #change was made here
 
     workspaces {
       name = "gh-actions-demo"
