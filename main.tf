@@ -1,79 +1,24 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "3.26.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "3.0.1"
-    }
-  }
-  required_version = ">= 1.1.0"
-
-  cloud {
-    organization = "REPLACE_ME"
-
-    workspaces {
-      name = "gh-actions-demo"
-    }
-  }
+# Kubernetes provider
+# https://learn.hashicorp.com/terraform/kubernetes/provision-eks-cluster#optional-configure-terraform-kubernetes-provider
+# To learn how to schedule deployments and services using the provider, go here: https://learn.hashicorp.com/terraform/kubernetes/deploy-nginx-kubernetes
+# The Kubernetes provider is included in this file so the EKS module can complete successfully. Otherwise, it throws an error when creating `kubernetes_config_map.aws_auth`.
+# You should **not** schedule deployments and services in this workspace. This keeps workspaces modular (one for provision EKS, another for scheduling Kubernetes resources) as per best practices.
+provider "kubernetes" {
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = var.region
 }
 
-resource "random_pet" "sg" {}
+data "aws_availability_zones" "available" {}
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
+locals {
+  cluster_name = "frcpoc-eks-${random_string.suffix.result}"
 }
 
-resource "aws_instance" "web" {
-  ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.web-sg.id]
-
-  user_data = <<-EOF
-              #!/bin/bash
-              apt-get update
-              apt-get install -y apache2
-              sed -i -e 's/80/8080/' /etc/apache2/ports.conf
-              echo "Hello World" > /var/www/html/index.html
-              systemctl restart apache2
-              EOF
-}
-
-resource "aws_security_group" "web-sg" {
-  name = "${random_pet.sg.id}-sg"
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  // connectivity to ubuntu mirrors is required to run `apt-get update` and `apt-get install apache2`
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-output "web-address" {
-  value = "${aws_instance.web.public_dns}:8080"
+resource "random_string" "suffix" {
+  length  = 8
+  special = false
 }
