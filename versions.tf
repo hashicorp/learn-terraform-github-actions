@@ -12,5 +12,13 @@ terraform {
   }
 
   required_version = "~> 1.0.11"
+
+  cloud {
+    organization = "frc"
+
+  workspaces {
+      name = "gh-actions-demo"
+    }
+  }
 }
 
