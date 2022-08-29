@@ -16,7 +16,7 @@ terraform {
   cloud {
     organization = "frc"
 
-  workspaces {
+    workspaces {
       name = "gh-actions-demo"
     }
   }
