@@ -11,9 +11,9 @@ terraform {
     }
   }
 
-  required_version = "~> 1.1.2"
+  required_version = "~> 1.0.11"
 
-  cloud {
+  backend {
     organization = "frc"
     workspaces {
       name = "gh-actions-demo"
