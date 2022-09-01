@@ -5,7 +5,7 @@ on:
     branches:
       - devpoc 
     paths:
-      - 'learn-terraform-github-actions/dev'    
+      - 'dev/**'    
   pull_request:
 
 jobs:
