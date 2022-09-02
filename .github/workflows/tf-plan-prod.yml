@@ -14,8 +14,7 @@ jobs:
     runs-on: self-hosted
     defaults:
       run:
-        working-directory: 'prod' 
-    if: ${{ contains(github.event.head_commit.message, '#prodenv') }}    
+        working-directory: 'prod'   
     steps:
       - name: Checkout
         uses: actions/checkout@v3
