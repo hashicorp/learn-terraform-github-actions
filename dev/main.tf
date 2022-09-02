@@ -4,12 +4,12 @@
 # The Kubernetes provider is included in this file so the EKS module can complete successfully. Otherwise, it throws an error when creating `kubernetes_config_map.aws_auth`.
 # You should **not** schedule deployments and services in this workspace. This keeps workspaces modular (one for provision EKS, another for scheduling Kubernetes resources) as per best practices.
 provider "kubernetes" {
-  host                   = "https://9E9D1FE1C8222E6062BF25E9AEA6EFD6.gr7.us-east-1.eks.amazonaws.com" 
+  host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
 }
 
 provider "aws" {
-  region = us-east-1
+  region = var.region
 }
 
 data "aws_availability_zones" "available" {}
