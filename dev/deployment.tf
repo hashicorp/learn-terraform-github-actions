@@ -4,7 +4,7 @@ resource "kubernetes_deployment" "nginx" {
     labels = {
       App = "ScalableNginxExample"
     }
-    namespace = "default" 
+    namespace = "default"
   }
 
   spec {
