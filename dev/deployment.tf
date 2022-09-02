@@ -22,7 +22,7 @@ resource "kubernetes_deployment" "nginx" {
       }
       spec {
         container {
-          image = "nginx:1.7.4"
+          image = "nginx:1.7.2"
           name  = "example"
 
           port {
