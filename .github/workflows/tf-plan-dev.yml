@@ -7,6 +7,7 @@ on:
     paths:
       - 'dev/**'    
   pull_request:
+    types: [ labeled ]      
 
 jobs:
   terraform:
@@ -40,7 +41,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        if: github.event_name == 'pull_request' || contains(github.event.head_commit.message, 'devenv') 
+        if: github.event_name == 'pull_request' || contains(github.event.pull_request.labels.*.name, '') 
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
