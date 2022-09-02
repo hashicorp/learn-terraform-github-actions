@@ -7,8 +7,15 @@ on:
     paths:
       - 'dev/**'    
   pull_request:
-    types: [ labeled ]      
+    types: [ labeled ] 
 
+permissions:
+  id-token: write
+  contents: read
+  checks: write
+  actions: write
+  pull-requests: write
+  
 jobs:
   terraform:
     name: "TF_DEV"
@@ -41,7 +48,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        if: ${{ (github.event_name == 'pull_request') || (contains(github.event.pull_request.labels.*.name, 'tfclouddevenv')) }}
+        if: ${{ (github.event_name == 'pull_request') || (contains(github.event.pull_request.labels.*.name, 'tfclouddevenv') }}
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
