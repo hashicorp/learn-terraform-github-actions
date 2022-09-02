@@ -16,7 +16,7 @@ terraform {
   backend "remote" {
     organization = "frc"
     workspaces {
-      name = "gh-actions-prod"
+      name = "gh-actions-demo"
     }
   }
 }
