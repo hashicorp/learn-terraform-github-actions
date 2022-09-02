@@ -5,13 +5,17 @@ on:
     branches:
       - devpoc 
     paths:
-      - 'learn-terraform-github-actions/prod'    
+      - 'prod/**'    
   pull_request:
 
 jobs:
   terraform:
     name: "TF_PROD"
-    runs-on: self-hosted 
+    runs-on: self-hosted
+    defaults:
+      run:
+        working-directory: 'prod' 
+    if: ${{ contains(github.event.head_commit.message, '#prodenv') }}    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
