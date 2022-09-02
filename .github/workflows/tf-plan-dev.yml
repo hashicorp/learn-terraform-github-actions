@@ -6,16 +6,7 @@ on:
       - devpoc 
     paths:
       - 'dev/**'    
-  pull_request:
-    types: [ labeled ]
-  workflow_dispatch:  
-
-permissions:
-  id-token: write
-  contents: read
-  checks: write
-  actions: write
-  pull-requests: write
+  pull_request: 
 
 jobs:
   terraform:
@@ -23,8 +14,7 @@ jobs:
     runs-on: self-hosted
     defaults:
       run:
-        working-directory: 'dev' 
-    if: contains(github.event.head_commit.message, 'devenv')     
+        working-directory: 'dev'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -50,7 +40,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color -input=false
+        run: terraform -chdir=dev plan
         continue-on-error: true
 
       - uses: actions/github-script@v6
