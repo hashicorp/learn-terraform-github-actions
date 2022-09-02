@@ -39,7 +39,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        if: ${{ github.event_name == 'pull_request' || github.event.label.name == 'env' }} 
+        if: github.event_name == 'pull_request' && github.event.label.name == 'env'
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
