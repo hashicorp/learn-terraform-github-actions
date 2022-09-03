@@ -21,7 +21,15 @@ provider "aws" {
 # Cluster
 
 variable "app" {
-  default = "actions-tutorial"
+  default = "learn-terraform-github-actions"
+}
+
+resource "aws_ecr_repository" "ecr-repo" {
+  name                 = var.app
+  image_tag_mutability = "IMMUTABLE"
+  image_scanning_configuration {
+    scan_on_push = true
+  }
 }
 
 resource "aws_kms_key" "kms-key" {
