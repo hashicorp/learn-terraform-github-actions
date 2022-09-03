@@ -14,6 +14,29 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
 
+            - name: Get Commit
+              id: commit
+              uses: pr-mpt/actions-commit-hash@v1
+
+            - name: Config AWS Creds
+              uses: aws-actions/configure-aws-credential@v1
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+            - name: Login to AWS ECR
+              id: login-ecr
+              uses: aws-actions/amazon-ecr-login@v1
+
+            - name: Build, tag, and push to ECR
+              env:
+                  ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+                  ECR_REPOSITORY: learn-terraform-github-actions
+                  IMAGE_TAG: ${{ steps.commit.outputs.short }}
+              run: |
+                  docker built -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+                  docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
             - name: Setup Terraform
               uses: hashicorp/setup-terraform@v1
               with:
