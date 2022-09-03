@@ -36,7 +36,7 @@ jobs:
               id: plan
               if: github.event_name == 'pull_request'
               run: terraform plan -no-color -input=false
-              # continue-on-error: true
+              continue-on-error: true
 
             # - uses: actions/github-script@v6
             #   if: github.event_name == 'pull_request'
@@ -67,9 +67,9 @@ jobs:
             #         body: output
             #       })
 
-            - name: Terraform Plan Status
-              if: steps.plan.outcome == 'failure'
-              run: echo "Your Plan Has Failed Sir!" && exit 1
+            # - name: Terraform Plan Status
+            #   if: steps.plan.outcome == 'failure'
+            #   run: echo "Your Plan Has Failed Sir!" && exit 1
 
             - name: Terraform Apply
               if: github.ref == 'refs/heads/main' && github.event_name == 'push'
