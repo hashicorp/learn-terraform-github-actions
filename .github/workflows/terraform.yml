@@ -32,7 +32,7 @@ jobs:
             - name: Build, tag, and push to ECR
               env:
                   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-                  ECR_REPOSITORY: learn-terraform-github-actions
+                  ECR_REPOSITORY: ${{ secrets.APP_NAME }}
                   IMAGE_TAG: ${{ steps.commit.outputs.short }}
               run: |
                   docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -41,8 +41,8 @@ jobs:
             - name: Setup Terraform
               uses: hashicorp/setup-terraform@v1
               with:
-                  # terraform_version: 0.13.0:
                   cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+                  TF_VAR_app: ${{ secrets.APP_NAME}}
 
             - name: Terraform Format
               id: fmt

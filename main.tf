@@ -21,11 +21,11 @@ provider "aws" {
 # Cluster
 
 variable "app" {
-  default = "actions-tutorial"
+  default = "learn-terraform-github-actions"
 }
 
 resource "aws_ecr_repository" "ecr-repo" {
-  name                 = "learn-terraform-github-actions"
+  name                 = var.app
   image_tag_mutability = "IMMUTABLE"
   image_scanning_configuration {
     scan_on_push = true
