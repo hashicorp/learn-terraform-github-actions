@@ -1,4 +1,6 @@
-# Automate Terraform with GitHub Actions
+## Required GH Action Secrets
 
-
-This repo is a companion repo to the [Automate Terraform with GitHub Actions](https://learn.hashicorp.com/tutorials/terraform/github-actions?in=terraform/automation).
+-   APP_NAME -- name of app
+-   AWS_ACCESS_KEY_ID -- AWS IAM access key
+-   AWS_SECRET_ACCESS_KEY -- AWS IAM secret
+-   TF_API_TOKEN -- Terraform API token
