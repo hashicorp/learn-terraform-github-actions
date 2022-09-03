@@ -24,6 +24,14 @@ variable "app" {
   default = "actions-tutorial"
 }
 
+resource "aws_ecr_repository" "ecr-repo" {
+  name                 = "learn-terraform-github-actions"
+  image_tag_mutability = "IMMUTABLE"
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
+
 resource "aws_kms_key" "kms-key" {
   deletion_window_in_days = 7
 }
