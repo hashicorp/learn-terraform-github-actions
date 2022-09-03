@@ -40,9 +40,10 @@ jobs:
 
             - name: Setup Terraform
               uses: hashicorp/setup-terraform@v1
+              env:
+                  TF_VAR_app: ${{ secrets.APP_NAME}}
               with:
                   cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-                  TF_VAR_app: ${{ secrets.APP_NAME}}
 
             - name: Terraform Format
               id: fmt
