@@ -13,7 +13,7 @@ terraform {
 
   cloud {
     organization = "MalikUDraz"
-
+# updating it second time
     workspaces {
       name = "gh-actions-demo"
     }
