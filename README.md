@@ -1,4 +1,4 @@
-# Automate Terraform with GitHub Actions
+# CI/CD pipeline with Github Actions
 
 
-This repo is a companion repo to the [Automate Terraform with GitHub Actions](https://learn.hashicorp.com/tutorials/terraform/github-actions?in=terraform/automation).
+A example pipeline to create a Ec2 instance and deploy a node.js app on AWS using terraform 
