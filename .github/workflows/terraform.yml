@@ -1,3 +1,4 @@
+#Runs when a pull request is opened or merged on main only, this follows best DevOps practices and gitHub flow
 name: "Terraform"
 
 on:
@@ -17,7 +18,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          # terraform_version: 0.13.0:
+          # pulls the lastest stable terraform
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: Terraform Format
