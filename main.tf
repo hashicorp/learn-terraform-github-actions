@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "REPLACE_ME"
+    organization = "ChrisHoodAU"
 
     workspaces {
       name = "gh-actions-demo"
@@ -21,7 +21,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = "ap-southeast-2"
 }
 
 resource "random_pet" "sg" {}
