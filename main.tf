@@ -51,7 +51,7 @@ resource "aws_instance" "web" {
               #!/bin/bash
               apt-get update
               apt-get install -y apache2
-              sed -i -e 's/80/8080/' /etc/apache2/ports.conf
+              sed -i -e 's/80/8081/' /etc/apache2/ports.conf
               echo "Hello World" > /var/www/html/index.html
               systemctl restart apache2
               EOF
@@ -60,8 +60,8 @@ resource "aws_instance" "web" {
 resource "aws_security_group" "web-sg" {
   name = "${random_pet.sg.id}-sg"
   ingress {
-    from_port   = 8080
-    to_port     = 8080
+    from_port   = 8081
+    to_port     = 8081
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -75,5 +75,5 @@ resource "aws_security_group" "web-sg" {
 }
 
 output "web-address" {
-  value = "${aws_instance.web.public_dns}:8080"
+  value = "${aws_instance.web.public_dns}:8081"
 }
