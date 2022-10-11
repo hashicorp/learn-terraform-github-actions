@@ -9,13 +9,13 @@ terraform {
       version = "3.0.1"
     }
   }
-  required_version = ">= 1.1.0"
+ 
 
-  cloud {
-    organization = "REPLACE_ME"
+  backend remote {
+    organization = "Hossam-ACG-Terraform-Labs"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "labs-migrate-state"
     }
   }
 }
