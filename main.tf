@@ -15,7 +15,7 @@ terraform {
     organization = "Demo-Lydia"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "learn-terraform-github-actions"
     }
   }
 }
