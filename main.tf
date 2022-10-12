@@ -29,16 +29,6 @@ resource "aws_instance" "web" {
   instance_type          = "t2.micro"
   subnet_id              = "subnet-0d77553dc9abeae0e"
 
-  user_data = <<-EOF
-              #!/bin/bash
-              apt-get update
-              apt-get install -y apache2
-              sed -i -e 's/80/8080/' /etc/apache2/ports.conf
-              echo "Hello World toto" > /var/www/html/index.html
-              systemctl restart apache2
-              EOF
-}
-
 tags = {
     Name = "ExampleAppServer"
   }
