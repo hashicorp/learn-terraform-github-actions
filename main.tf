@@ -27,7 +27,7 @@ provider "aws" {
 resource "aws_instance" "web" {
   ami                    = "ami-02d0b1ffa5f16402d"
   instance_type          = "t2.micro"
-  subnet_id     =          "subnet-0d77553dc9abeae0e"Ò
+  subnet_id              = "subnet-0d77553dc9abeae0e"
 
   user_data = <<-EOF
               #!/bin/bash
