@@ -6,18 +6,19 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "chimbani"
-
-    workspaces {
-      name = "ibinderTerraformModules"
-    }
+   backend "azurerm" {
+    resource_group_name  = "ibinder-resource-group3"
+    storage_account_name = "ibinderstorage"
+    container_name       = "tfstate"
+    key                  = "terraformgithubexample.tfstate"
   }
 }
 
 provider "azurerm" {
   features {}
 }
+
+data "azurerm_client_config" "current" {}
 
 
 resource "azurerm_resource_group" "rg"{
