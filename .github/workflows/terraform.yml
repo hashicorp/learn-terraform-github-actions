@@ -41,7 +41,7 @@ jobs:
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
         env:
-          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+          PLAN: ${{ steps.plan.outputs.stdout }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -51,11 +51,14 @@ jobs:
             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
 
             <details><summary>Show Plan</summary>
-
-            \`\`\`\n
-            ${process.env.PLAN}
+            \`\`\`diff\n
+            ${
+            process.env.PLAN
+            .substring(0, 65000) // github character limit with some margin
+            .replace(/^([^\S\r\n]*)([-+~])/gm, '$2\$1') // move any diff characters to start of line
+            .replace('~', '!') // replace ~ with ! to colourise the diff in GitHub comments
+            }
             \`\`\`
-
             </details>
 
             *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
