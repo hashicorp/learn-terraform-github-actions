@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "3.26.0"
+      version = "4.42.0"
     }
     random = {
       source  = "hashicorp/random"
@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "REPLACE_ME"
+    organization = "terraformTrainingCredera"
 
     workspaces {
       name = "gh-actions-demo"
@@ -21,7 +21,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = "us-east-2"
 }
 
 resource "random_pet" "sg" {}
