@@ -13,6 +13,7 @@ terraform {
 
   cloud {
     organization = "yaseen-tfcorg"
+    
 
     workspaces {
       name = "gh-actions-demo"
