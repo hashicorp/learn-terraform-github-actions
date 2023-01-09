@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "bajacloud
+    organization = "bajacloud"
 
     workspaces {
       name = "gh-actions-demo"
@@ -28,6 +28,7 @@ resource "random_pet" "sg" {}
 
 data "aws_ami" "ubuntu" {
   most_recent = true
+
 
   filter {
     name   = "name"
