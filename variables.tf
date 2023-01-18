@@ -14,4 +14,5 @@ variable "bucket_location" {
 }
 
 variable "gcp_key" {
+default=""
 }
