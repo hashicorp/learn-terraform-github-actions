@@ -13,7 +13,7 @@ terraform {
 
   cloud {
     organization = "curiositycorp"
-
+# made changes to organization
     workspaces {
       name = "test-env"
     }
