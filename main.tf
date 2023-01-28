@@ -13,7 +13,11 @@ terraform {
 
   cloud {
     organization = "REPLACE_ME"
-
+    git checkout -b 'update-tfc-backend'
+    git add main.tf
+    git commit -m 'Point backend to correct TFC org and workspace'
+    git push
+    
     workspaces {
       name = "gh-actions-demo"
     }
