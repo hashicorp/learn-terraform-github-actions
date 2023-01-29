@@ -16,9 +16,6 @@ terraform {
 
     workspaces {
       name = "gh-actions-demo"
-      add main.tf
-      commit -m 'Point backend to correct TFC org and workspace'
-      push
     }
   }
 }
