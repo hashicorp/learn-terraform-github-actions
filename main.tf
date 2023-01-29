@@ -12,10 +12,13 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "REPLACE_ME"
+    organization = "silvano"
 
     workspaces {
       name = "gh-actions-demo"
+      add main.tf
+      commit -m 'Point backend to correct TFC org and workspace'
+      push
     }
   }
 }
