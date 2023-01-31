@@ -9,7 +9,7 @@ terraform {
       version = "3.4.3"
     }
   }
-  required_version = "~> 1.3.0"
+  required_version = ">= 1.1.0"
 
   cloud {
     organization = "REPLACE_ME"
