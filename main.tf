@@ -12,10 +12,10 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "gh-camunda-deploy"
+    organization = "example-org-b6886c"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "gh-camunda-deploy"
     }
   }
 }
