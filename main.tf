@@ -15,7 +15,7 @@ terraform {
     organization = "example-org-b6886c"
 
     workspaces {
-      name = "gh-camunda-deploy"
+      name = "gh-camunda"
     }
   }
 }
