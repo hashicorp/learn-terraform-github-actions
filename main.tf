@@ -34,11 +34,6 @@ data "aws_ami" "ubuntu" {
     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
   owners = ["776538664207"] # Canonical
 }
 
