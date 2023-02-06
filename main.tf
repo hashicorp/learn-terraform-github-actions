@@ -12,16 +12,16 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "REPLACE_ME"
+    organization = "Nandini-Kasuladevi"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "gh-actions-demo-new"
     }
   }
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = "us-east-1"
 }
 
 resource "random_pet" "sg" {}
@@ -39,7 +39,7 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  owners = ["099720109477"] # Canonical
+  owners = ["776538664207"] # Canonical
 }
 
 resource "aws_instance" "web" {
