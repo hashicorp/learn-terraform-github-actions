@@ -10,8 +10,8 @@ jobs:
   terraform:
     name: "Terraform"
     runs-on: ubuntu-latest
-    permissions:
-      pull-request: write
+#     permissions:
+#       pull-request: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -36,7 +36,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-       # if: github.event_name == 'pull_request'
+       #if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
@@ -75,5 +75,5 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-      #  if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
