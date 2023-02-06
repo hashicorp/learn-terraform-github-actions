@@ -47,19 +47,19 @@ jobs:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+#           script: |
+#             const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+#             #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+#             #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+#             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
 
-            <details><summary>Show Plan</summary>
+#             <details><summary>Show Plan</summary>
 
-            \`\`\`\n
-            ${process.env.PLAN}
-            \`\`\`
+#             \`\`\`\n
+#             ${process.env.PLAN}
+#             \`\`\`
 
-            </details>
+#             </details>
 
             *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
 
