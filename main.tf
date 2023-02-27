@@ -2,16 +2,18 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "4.52.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "3.4.3"
+      version = "4.50"
     }
   }
-  required_version = ">= 1.1.0"
 
-  cloud {
+  required_version = ">= 1.2.0"
+}
+
+provider "aws" {
+  region = var.region
+}
+
+ cloud {
     organization = "QATIP2697"
 
     workspaces {
@@ -20,60 +22,98 @@ terraform {
   }
 }
 
-provider "aws" {
-  region = "us-west-2"
+#resource "aws_vpc" "lab_vpc" {
+resource "aws_vpc" "lab-vpc" {
+    cidr_block = "10.1.0.0/16"
 }
 
-resource "random_pet" "sg" {}
+resource "aws_internet_gateway" "labigw" {
+  vpc_id = aws_vpc.lab-vpc.id
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
-}
-
-resource "aws_instance" "web" {
-  ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.web-sg.id]
-
-  user_data = <<-EOF
-              #!/bin/bash
-              apt-get update
-              apt-get install -y apache2
-              sed -i -e 's/80/8080/' /etc/apache2/ports.conf
-              echo "Hello World" > /var/www/html/index.html
-              systemctl restart apache2
-              EOF
-}
-
-resource "aws_security_group" "web-sg" {
-  name = "${random_pet.sg.id}-sg"
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  // connectivity to ubuntu mirrors is required to run `apt-get update` and `apt-get install apache2`
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+  tags = {
+    Name = "lab-ig"
   }
 }
 
-output "web-address" {
-  value = "${aws_instance.web.public_dns}:8080"
+resource "aws_subnet" "public-subnet" {
+    vpc_id     = aws_vpc.lab-vpc.id
+    cidr_block = "10.1.10.0/24"
+
+    tags = {
+    Name = "public-subnet"
+    }
+    
 }
+
+data "aws_availability_zones" "azlist" {
+  state = "available"
+}
+    
+resource "aws_subnet" "private-subnets" {
+  count             = var.az_count
+  cidr_block        = cidrsubnet(aws_vpc.lab-vpc.cidr_block, 8, count.index)
+  availability_zone = data.aws_availability_zones.azlist.names[count.index]
+  vpc_id            = aws_vpc.lab-vpc.id
+
+  tags = {
+    Name = "private-subnet"
+  }
+
+
+}
+
+resource "aws_route_table" "public_rt" {
+    vpc_id = aws_vpc.lab-vpc.id
+
+    route {
+        cidr_block = "0.0.0.0/0"
+        gateway_id=aws_internet_gateway.labigw.id
+  }
+  tags = {
+  Name = "public-route"
+  }
+
+
+}
+
+resource "aws_eip" "static_ip" {
+  vpc      = true
+}
+
+resource "aws_nat_gateway" "labnatgw" {
+  allocation_id = aws_eip.static_ip.id
+  subnet_id     = aws_subnet.public-subnet.id
+
+  tags = {
+    Name = "lab_nat_gw"
+  }
+
+  # Ensuring IGW is created
+  # Ensuring EIP is created
+  depends_on = [aws_internet_gateway.labigw, aws_eip.static_ip]
+}
+
+resource "aws_route_table" "private_rt" {
+    vpc_id = aws_vpc.lab-vpc.id
+
+    route {
+        cidr_block = "0.0.0.0/0"
+        gateway_id=aws_nat_gateway.labnatgw.id
+  }
+  tags = {
+  Name = "private-route"
+  }
+}
+  
+resource "aws_route_table_association" "public_rta" {
+    subnet_id      = aws_subnet.public-subnet.id
+    route_table_id = aws_route_table.public_rt.id
+}
+
+resource "aws_route_table_association" "private_rta" {
+  count = var.az_count
+  subnet_id      = "${element(aws_subnet.private-subnets.*.id, count.index)}"
+    route_table_id = aws_route_table.private_rt.id
+}
+
+
