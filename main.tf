@@ -19,8 +19,8 @@ provider "aws" {
     workspaces {
       name = "gh-actions-demo"
     }
-  }
 }
+
 
 #resource "aws_vpc" "lab_vpc" {
 resource "aws_vpc" "lab-vpc" {
