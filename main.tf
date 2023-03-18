@@ -15,7 +15,7 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "REPLACE_ME"
+    organization = "swaranga-AAcorp"
 
     workspaces {
       name = "gh-actions-demo"
@@ -24,7 +24,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = "ap-south-1"
 }
 
 resource "random_pet" "sg" {}
