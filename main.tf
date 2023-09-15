@@ -15,10 +15,10 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "REPLACE_ME"
+    organization = "dlnkalyaniorg"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "demo-github-actions"
     }
   }
 }
@@ -30,6 +30,7 @@ provider "aws" {
 resource "random_pet" "sg" {}
 
 data "aws_ami" "ubuntu" {
+
   most_recent = true
 
   filter {
@@ -38,11 +39,15 @@ data "aws_ami" "ubuntu" {
   }
 
   filter {
-    name   = "virtualization-type"
+    name = "virtualization-type"
     values = ["hvm"]
   }
 
-  owners = ["099720109477"] # Canonical
+  owners = ["099720109477"]
+}
+
+output "test" {
+  value = data.aws_ami.ubuntu
 }
 
 resource "aws_instance" "web" {
