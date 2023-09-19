@@ -9,7 +9,7 @@ jobs:
     if: github.repository == 'hashicorp/learn-terraform-github-actions'
     runs-on: ubuntu-latest
     steps:
-    - uses: superbrothers/close-pull-request@v3
+    - uses: superbrothers/close-pull-request@v3 # TSCCR: no entry for action: "superbrothers/close-pull-request"
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         # Optional. Post a issue comment just before closing a pull request.
